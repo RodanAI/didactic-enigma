@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>青春治愈馆</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Microsoft YaHei', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #ffb3ba 0%, #bae1ff 100%);
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .input-section {
+            text-align: center;
+            padding: 40px 0;
+        }
+
+        h1 {
+            color: #ffffff;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            margin-bottom: 30px;
+        }
+
+        #userInput {
+            width: 100%;
+            max-width: 500px;
+            height: 120px;
+            padding: 15px;
+            border: 2px solid #fff;
+            border-radius: 15px;
+            font-size: 16px;
+            margin: 20px 0;
+            background: rgba(255,255,255,0.8);
+            resize: vertical;
+        }
+
+        button {
+            background: #ffffff;
+            color: #ff7a9e;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0,0,0,0.2);
+        }
+
+        .result-section {
+            display: none;
+            margin-top: 30px;
+        }
+
+        .healing-card {
+            background: rgba(255,255,255,0.9);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .healing-card img {
+            width: 100%;
+            max-width: 400px;
+            border-radius: 10px;
+            margin: 15px 0;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 24px;
+            }
+            
+            #userInput {
+                height: 100px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="input-section">
+            <h1>🌸 青春烦恼治愈小屋 🍀</h1>
+            <textarea id="userInput" placeholder="写下你的烦恼..."></textarea>
+            <br>
+            <button onclick="generateHealing()">生成治愈方案</button>
+        </div>
+
+        <div class="result-section" id="resultSection">
+            <div id="healingContent"></div>
+            <button onclick="resetPage()" style="margin: 20px auto;">再试一次</button>
+        </div>
+    </div>
+
+    <script>
+        const healingData = [
+            {
+                type: 'music',
+                title: '🎵 治愈歌单推荐',
+                content: '试试听这些青春回忆金曲：《晴天》《七里香》《小幸运》',
+                img: 'https://source.unsplash.com/random/800x600/?music'
+            },
+            {
+                type: 'movie',
+                title: '🎬 青春电影推荐',
+                content: '推荐观看《怦然心动》《那些年我们一起追的女孩》',
+                img: 'https://source.unsplash.com/random/800x600/?movie'
+            },
+            {
+                type: 'fashion',
+                title: '👗 复古时尚灵感',
+                content: '尝试学院风穿搭：格子裙+白衬衫+针织背心',
+                img: 'https://source.unsplash.com/random/800x600/?fashion'
+            }
+        ];
+
+        function generateHealing() {
+            const userText = document.getElementById('userInput').value;
+            if (!userText) {
+                alert('请先写下你的烦恼哦~');
+                return;
+            }
+
+            document.querySelector('.input-section').style.display = 'none';
+            document.getElementById('resultSection').style.display = 'block';
+
+            const randomIndex = Math.floor(Math.random() * healingData.length);
+            const selected = healingData[randomIndex];
+            
+            const contentDiv = document.getElementById('healingContent');
+            contentDiv.innerHTML = `
+                <div class="healing-card">
+                    <h2>${selected.title}</h2>
+                    <p>${selected.content}</p>
+                    <img src="${selected.img}" alt="治愈图片">
+                    <p>🔮 温馨提示：深呼吸三次，给过去的自己一个微笑吧</p>
+                </div>
+            `;
+        }
+
+        function resetPage() {
+            document.getElementById('userInput').value = '';
+            document.querySelector('.input-section').style.display = 'block';
+            document.getElementById('resultSection').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
